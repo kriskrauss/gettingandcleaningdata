@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>gettingandcleaningdata</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>gettingandcleaningdata</h1>
+
+<p>Course Project work for Getting and Cleaning Data class</p>
+
+<h2>What is the project all about?</h2>
+
+<p>Data for the project is available at:
+<a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a> </p>
+
+<p>Create a script:</p>
+
+<ol>
+<li><p>Merges the training and the test sets to create one data set.</p></li>
+<li><p>Extracts only the measurements on the mean and standard deviation for each measurement.</p></li>
+<li><p>Uses descriptive activity names to name the activities in the data set</p></li>
+<li><p>Appropriately labels the data set with descriptive variable names. </p></li>
+<li><p>Creates a second, independent tidy data set with the average of each variable for each activity and each subject. </p></li>
+</ol>
+
+<h2>Data Files</h2>
+
+<p>Metadata:</p>
+
+<ol>
+<li><p>activity_lables.txt - contains the lables for the various activities</p></li>
+<li><p>features.txt - contains the variables being measured</p></li>
+</ol>
+
+<p>Test set:</p>
+
+<ol>
+<li><p>x_test.txt - contains the signal measurements</p></li>
+<li><p>y_test.txt - lists the activity corresponding to the measurement</p></li>
+<li><p>subject_test.txt - lists the subject corresponding to the measurement</p></li>
+</ol>
+
+<p>Train set:</p>
+
+<ol>
+<li><p>x_train.txt - contains the signal measurements</p></li>
+<li><p>y_train.txt - lists the activity corresponding to the measurement</p></li>
+<li><p>subject_train.txt - lists the subject corresponding to the measurement</p></li>
+</ol>
+
+<h2>Assumption</h2>
+
+<p>Samsung data is available in the working directory</p>
+
+<h2>Implementation</h2>
+
+<p>Steps in run_analysis.R are described below:</p>
+
+<ol>
+<li><p>Load the different data files into R</p></li>
+<li><p>Set column names for easy readability and processing</p></li>
+<li><p>Extract mean and standard deviation for each measurement</p></li>
+<li><p>Combine subject, acitivity and signal data</p></li>
+<li><p>Merge test and train sets</p></li>
+<li><p>Make the column names more readable and usable</p>
+
+<ul>
+<li>remove extraneous characters (&ldquo;-&rdquo;,&ldquo;(&rdquo;,&ldquo;)&rdquo;)</li>
+<li>change column prefix &#39;t&#39; to denote time, &#39;f&#39; to denote freq</li>
+<li>remove extra &ldquo;Body&rdquo; in some column names</li>
+<li>make them all lower case</li>
+</ul></li>
+<li><p>Compute the average of each variable for each activity and each subject</p></li>
+<li><p>Set up the tidy data set with proper column names and ordered by subject and activity</p></li>
+<li><p>Confirm each subject has all 6 activities</p></li>
+</ol>
+
+<h2>Result</h2>
+
+<p>Confirmed each subject has all 6 activities and the tidy data set has been uploaded as a txt file</p>
+
+</body>
+
+</html>
+
