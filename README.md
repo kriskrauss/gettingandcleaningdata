@@ -82,4 +82,4 @@ Steps in run_analysis.R are described below:
 Result
 -------------------------
 
-Confirmed each subject has all 6 activities and the tidy data set has been uploaded as a txt file
+Confirmed each subject has all 6 activities and the tidy data set has been uploaded as a comma separated txt file with 180 rows with 68 variables
